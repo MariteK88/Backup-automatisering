@@ -8,7 +8,7 @@ Terraform ska skapa mappar och filer som behövs för projektet. PowerShell ska 
 
 ### Verktyg
 - Ubuntu via WSL
-- VisualStudioCode
+- Visual Studio Code
 - Terraform
 - PowerShell 7
-- Git och Github
+- Git och GitHub

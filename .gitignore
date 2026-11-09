@@ -1,0 +1,9 @@
+#Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+
+#Filer som Terraform skapar
+Backup/
+backup-info.txt
+testfil.txt
