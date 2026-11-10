@@ -28,6 +28,15 @@ resource "local_file" "backup_test" {
   filename = "${path.module}/${var.backup_path}/backup_test.txt"
   content  = "Detta är en testfil i backupmappen."
 }
+# Resurs som skapar en JSON-fil med backupinställningar
+resource "local_file" "backup_config" {
+  filename = "${path.module}/backup-config.json"
+
+  content = jsonencode({
+    source_path = local_file.test_file.filename
+    backup_path = "${path.module}/${var.backup_path}"
+  })
+}
 # Visar sökvägen till informationsfilen
 output "backup_info_file" {
   value = local_file.backup_info.filename
