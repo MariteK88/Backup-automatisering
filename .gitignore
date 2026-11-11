@@ -5,5 +5,5 @@
 
 #Filer som Terraform skapar
 Backup/
-backup-info.txt
 testfil.txt
+backup-config.json

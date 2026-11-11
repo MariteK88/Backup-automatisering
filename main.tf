@@ -8,26 +8,19 @@ terraform {
     }
   }
 }
+
 # Variabel som anger sökvägen till backupmappen
 variable "backup_path" {
   type    = string
   default = "Backup"
 }
-# Resurs som skapar information om backup-projektet
-resource "local_file" "backup_info" {
-  filename = "${path.module}/backup-info.txt"
-  content  = "Backup-projektet är förberett."
-}
-# Resurs som skapar en testfil för säkerhetskopiering
+
+# Resurs som skapar originalfilen för säkerhetskopiering
 resource "local_file" "test_file" {
   filename = "${path.module}/testfil.txt"
   content  = "Detta är en testfil för backup."
 }
-# Resurs som skapar en fil i backupmappen
-resource "local_file" "backup_test" {
-  filename = "${path.module}/${var.backup_path}/backup_test.txt"
-  content  = "Detta är en testfil i backupmappen."
-}
+
 # Resurs som skapar en JSON-fil med backupinställningar
 resource "local_file" "backup_config" {
   filename = "${path.module}/backup-config.json"
@@ -37,15 +30,8 @@ resource "local_file" "backup_config" {
     backup_path = "${path.module}/${var.backup_path}"
   })
 }
-# Visar sökvägen till informationsfilen
-output "backup_info_file" {
-  value = local_file.backup_info.filename
-}
-# Visar sökvägen till testfilen
+
+# Visar sökvägen till originalfilen
 output "test_file" {
   value = local_file.test_file.filename
-}
-# Visar sökvägen till testfilen i backupmappen
-output "backup_test_file" {
-  value = local_file.backup_test.filename
 }
