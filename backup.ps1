@@ -1,5 +1,6 @@
 # Sökvägen till konfigurationsfilen
-$configPath = Join-Path $PSScriptRoot "backup-config.json"
+$configPath = Join-Path $PSScriptRoot "backup-config.json" #$PSScriptRoot är en automatisk PowerShell-variabel som hämtar sökvägen till katalogen där det aktuella PowerShell-skriptet ligger.
+
 # Läser in konfigurationen med felhantering
 try {
     $config = Get-Content -Path $configPath -Raw -ErrorAction Stop | ConvertFrom-Json

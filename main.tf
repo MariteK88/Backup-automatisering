@@ -1,5 +1,4 @@
-# Konfiguration av Terraform och den
-# provider som projektet använder
+#Jag använder local-providern i Terraform för att kunna skapa och hantera filer lokalt på datorn
 terraform {
   required_providers {
     local = {
