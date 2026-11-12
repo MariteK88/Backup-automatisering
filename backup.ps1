@@ -13,8 +13,9 @@ catch {
 $sourcePath = Join-Path $PSScriptRoot $config.source_path
 $backupPath = Join-Path $PSScriptRoot $config.backup_path
 
-# Array med filer som ska säkerhetskopieras
-$filesToBackup = @($sourcePath)
+# Hämtar alla textfiler från projektmappen
+$sourceFolder = Split-Path -Path $sourcePath -Parent
+$filesToBackup = @(Get-ChildItem -Path $sourceFolder -Filter "*.txt" -File)
 
 # Funktion som skapar backupmappen
 function New-BackupFolder {
@@ -69,11 +70,14 @@ New-BackupFolder -Path $backupPath
 
 # Loopar igenom filerna och kopierar dem
 foreach ($file in $filesToBackup) {
-    Copy-BackupFile -SourcePath $file -DestinationPath $backupPath
-        # Ökar räknaren med 1 för varje kopierad fil
+
+    Copy-BackupFile -SourcePath $file.FullName -DestinationPath $backupPath
+
+    # Kontrollerar att varje backupfil har skapats
+    Test-BackupFile -BackupPath $backupPath -SourcePath $file.FullName
+
+    # Ökar räknaren med 1 för varje kopierad fil
     $backupCount++
 }
 # Skriver ut antalet säkerhetskopierade filer
-Write-Host "Antal säkerhetskopierade filer: $backupCount"
-# Kontrollerar att backupfilen har skapats
-Test-BackupFile -BackupPath $backupPath -SourcePath $sourcePath
+Write-Host "Antal säkerhetskopierade filer: $backupCount" 
